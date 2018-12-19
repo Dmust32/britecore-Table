@@ -1,6 +1,5 @@
 <template>
 <div>
-    <h1>Here is my table!!!</h1>
     <table>
         <tr>
             <th>Name</th>
