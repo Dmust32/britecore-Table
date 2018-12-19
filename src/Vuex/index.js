@@ -9,18 +9,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        tableRows: [{
-            name: "Jake Higgs",
-            description: 'Awesome as usual',
-            date: '07-06-1990',
-            amount: 210.00
-        }]
+        tableRows: [],
+        showModal: false
     },
     
     actions: {
-        getTableData: ({ commit }) => {
-            axios.get('/api/get-table-data').then(res => {
-                commit('setTableRows', {tableRows: res.data})
+        getTableData: (context) => {
+            axios.get('http://localhost:5050/api/get-table-data').then(res => {
+                context.commit('SET_TABLE_ROWS', res.data)
             })
         },
         updateDesc: (commit, {description, id}) => {
@@ -31,8 +27,15 @@ export default new Vuex.Store({
     },
     
     mutations: {
-        setTableRows: (state, {data}) => {
+        SET_TABLE_ROWS: (state, data) => {
             state.tableRows = data
+        },
+        TOGGLE_SHOW_MODAL: (state) => {
+            if(state.showModal){
+                state.showModal = false
+            }else{
+                state.showModal = true
+            }
         }
     }
 })
