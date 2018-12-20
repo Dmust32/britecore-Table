@@ -1,16 +1,17 @@
 <template>
-    <div class='modal'>
+<transition name="modal">
+    <div class='modal' v-on:click='HIDE_MODAL'>
         <div class='modal-container'>
-            <h1>Im the modal bitch.</h1>
             <p>{{modalData}}</p>
-            <input :placeholder=modalData.description v-model='newDescription'/>
+            <input type='text' v-model='newDescription'>
             <button v-on:click='updateDesc(newDescription)'>Close Modal</button>
         </div>
     </div>   
+</transition>
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
     data: () => {
@@ -18,9 +19,6 @@ export default {
             newDescription: ''
         }
     },
-    props:[
-        'row'
-    ],
     computed: {
         ...mapState([
             'showModal',
@@ -30,6 +28,9 @@ export default {
     methods: {
         ...mapActions([
             'updateDesc'
+        ]),
+        ...mapMutations([
+            'HIDE_MODAL'
         ])
     },
 }
@@ -47,19 +48,34 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: opacity .3s ease;
+        background-color: rgba(0,0,0, .02);
+        transition: opacity .5s ease;
     }
 
     .modal-container{
         /* display: flex; */
-
         position: absolute;
         height: 600px;
         width: 800px;
         background-Color: #F2F3F5;
-
+        transition: all .2s ease;
         border-radius: 10px;
+        
     }
+
+    .modal-enter{
+        opacity: 0
+    }
+
+    .modal-leave-active{
+        opacity: 0
+    }
+
+    .modal-enter .modal-container,
+    .modal-leave-active .modal-container{
+        transform: scale(1.1)
+    }
+
 </style>
 
 

@@ -43,11 +43,10 @@ export default new Vuex.Store({
             state.modalData = data
         },
         HIDE_MODAL: (state) => {
-            
             state.showModal = false
             state.modalData = {}
         }
-        },
+    },
         
     }
 )
