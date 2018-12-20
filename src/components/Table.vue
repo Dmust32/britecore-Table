@@ -4,20 +4,18 @@
     
     <table>
         <tr>
-            <th>The Id</th>
             <th>Name</th>
             <th>Description</th>
             <th>Date</th>
             <th>Amount</th>
         </tr>
         <tr v-for="(row) in tableRows" v-bind:key="row.rowId">
-            <td>{{row.rowId}}</td>
             <td>{{row.name}}</td>
             <td>{{row.description}}</td>
             <td>{{row.date}}</td>
             <td>{{row.amount}}</td>
-            <button v-on:click='TOGGLE_SHOW_MODAL'>Edit Description</button>
-            <Modal v-bind:row='row'/>
+            <button v-on:click='SHOW_MODAL(row)'>Edit Description</button>
+            <Modal v-if='showModal'/>
         </tr>
     </table>
 </div>
@@ -34,7 +32,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'tableRows'
+            'tableRows',
+            'showModal'
         ]),
         
     },
@@ -44,7 +43,7 @@ export default {
             'updateDesc'
         ]),
         ...mapMutations([
-            'TOGGLE_SHOW_MODAL'
+            'SHOW_MODAL'
         ])
     },
     mounted() {

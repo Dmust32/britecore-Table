@@ -1,28 +1,35 @@
 <template>
-    <div v-if='showModal' class='modal'>
+    <div class='modal'>
         <div class='modal-container'>
             <h1>Im the modal bitch.</h1>
-            <p>{{row}}</p>
-            <button v-on:click='TOGGLE_SHOW_MODAL'>Close Modal</button>
+            <p>{{modalData}}</p>
+            <input :placeholder=modalData.description v-model='newDescription'/>
+            <button v-on:click='updateDesc(newDescription)'>Close Modal</button>
         </div>
     </div>   
 </template>
 
 <script>
-import {mapState, mapActions, mapMutations} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
+    data: () => {
+        return{
+            newDescription: ''
+        }
+    },
     props:[
         'row'
     ],
     computed: {
         ...mapState([
-            'showModal'
+            'showModal',
+            'modalData'
         ])
     },
     methods: {
-        ...mapMutations([
-            'TOGGLE_SHOW_MODAL'
+        ...mapActions([
+            'updateDesc'
         ])
     },
 }
@@ -30,7 +37,7 @@ export default {
 
 <style scoped>
     .modal{
-         z-index: 1000;
+        z-index: 1000;
         position: fixed;
         top: 0;
         right: 0;
@@ -40,6 +47,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: opacity .3s ease;
     }
 
     .modal-container{

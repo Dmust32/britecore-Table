@@ -10,7 +10,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         tableRows: [],
-        showModal: false
+        showModal: false,
+        modalData: {}
     },
     
     actions: {
@@ -19,23 +20,34 @@ export default new Vuex.Store({
                 context.commit('SET_TABLE_ROWS', res.data)
             })
         },
-        updateDesc: (commit, {description, id}) => {
-            axios.put('/api/updateDesc', {description, id}).then(res=>{
-                commit('setTableRows', {tableRows: res.data})
+        updateDesc: ({commit, state}, description) => {
+            let row_id = state.modalData.row_id
+            axios.put('http://localhost:5050/api/updateDesc', {description, row_id}).then(res=>{
+                commit('SET_TABLE_ROWS', {tableRows: res.data})
+                commit('HIDE_MODAL')
             })
         }
     },
     
     mutations: {
         SET_TABLE_ROWS: (state, data) => {
-            state.tableRows = data
-        },
-        TOGGLE_SHOW_MODAL: (state) => {
-            if(state.showModal){
-                state.showModal = false
+            if(data.tableRows){
+                state.tableRows = data.tableRows
             }else{
-                state.showModal = true
+                state.tableRows = data
             }
+            
+        },
+        SHOW_MODAL: (state, data) => {
+            state.showModal = true
+            state.modalData = data
+        },
+        HIDE_MODAL: (state) => {
+            
+            state.showModal = false
+            state.modalData = {}
         }
+        },
+        
     }
-})
+)
