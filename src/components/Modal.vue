@@ -1,10 +1,11 @@
 <template>
 <transition name="modal">
-    <div class='modal' v-on:click='HIDE_MODAL'>
+    <div class='modal'>
         <div class='modal-container'>
             <p>{{modalData}}</p>
             <input type='text' v-model='newDescription'>
-            <button v-on:click='updateDesc(newDescription)'>Close Modal</button>
+            <button v-on:click='updateDesc(newDescription)'>Save and Close</button>
+            <button v-on:click='HIDE_MODAL'>Cancel</button>
         </div>
     </div>   
 </transition>
@@ -55,8 +56,8 @@ export default {
     .modal-container{
         /* display: flex; */
         position: absolute;
-        height: 600px;
-        width: 800px;
+        height: 400px;
+        width: 600px;
         background-Color: #F2F3F5;
         transition: all .2s ease;
         border-radius: 10px;

@@ -11,7 +11,9 @@ export default new Vuex.Store({
     state: {
         tableRows: [],
         showModal: false,
-        modalData: {}
+        modalData: {},
+        column: '',
+        sortBy: ''
     },
     
     actions: {
@@ -25,6 +27,12 @@ export default new Vuex.Store({
             axios.put('http://localhost:5050/api/updateDesc', {description, row_id}).then(res=>{
                 commit('SET_TABLE_ROWS', {tableRows: res.data})
                 commit('HIDE_MODAL')
+            })
+        },
+        sortData: ({commit, state}, column, sortBy) => {
+            console.log('hitting the action', column, sortBy)
+            axios.post('http://localhost:5050/api/sortData', {column, sortBy}).then(res=>{
+                commit('SET_TABLE_ROWS', {tableRows: res.data})
             })
         }
     },

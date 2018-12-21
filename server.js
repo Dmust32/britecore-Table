@@ -21,6 +21,7 @@ massive(process.env.CONNECTION_STRING).then(db=> {
 // Endpoints
 app.get('/api/get-table-data', tableController.getTableData)
 app.put('/api/updateDesc', tableController.updateDesc)
+app.post('/api/sortData', tableController.sortData)
 
 app.listen(port, () => {
     console.log('Getting dirty on port', port )
