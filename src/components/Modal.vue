@@ -1,5 +1,4 @@
 <template>
-<transition name="modal">
     <div class='modal'>
         <div class='modal-container'>
             <p>{{modalData}}</p>
@@ -8,7 +7,6 @@
             <button v-on:click='HIDE_MODAL'>Cancel</button>
         </div>
     </div>   
-</transition>
 </template>
 
 <script>
@@ -61,20 +59,6 @@ export default {
         background-Color: #F2F3F5;
         transition: all .2s ease;
         border-radius: 10px;
-        
-    }
-
-    .modal-enter{
-        opacity: 0
-    }
-
-    .modal-leave-active{
-        opacity: 0
-    }
-
-    .modal-enter .modal-container,
-    .modal-leave-active .modal-container{
-        transform: scale(1.1)
     }
 
 </style>

@@ -18,10 +18,22 @@ massive(process.env.CONNECTION_STRING).then(db=> {
     console.error(err);
 })
 
-// Endpoints
+// Sort Endpoints
+app.post('/api/sortData-name', tableController.sortDataByName)
+app.post('/api/sortData-date', tableController.sortDataByDate)
+app.post('/api/sortData-amount', tableController.sortDataByAmount)
+
+// Crud
+app.post('/api/newRow', tableController.addRow)
 app.get('/api/get-table-data', tableController.getTableData)
 app.put('/api/updateDesc', tableController.updateDesc)
-app.post('/api/sortData', tableController.sortData)
+app.delete('/api/deleteRow', tableController.deleteRow)
+
+// Filter
+app.post('/api/filter-by-date', tableController.filterByDate)
+
+// MISC
+app.post('/api/important', tableController.toggleMarkImportant)
 
 app.listen(port, () => {
     console.log('Getting dirty on port', port )
